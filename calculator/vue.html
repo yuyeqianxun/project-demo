@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Calculator</title>
+	<meta name="viewport" content="width=device-width">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+	<div class="contain" id="calculator">
+		<div class="res">{{res}}</div>
+		<div class="input">{{input}}</div>
+		<ul>
+			<li v-for="(item,index) in list" :key="index" @click="button(item)">{{item}}</li>			
+		</ul>
+	</div>
+	<script>
+		new Vue({
+			el:'#calculator',
+			data(){
+				return{
+					list:['C','(',')','<-','7','8','9','/','4','5','6','*','1','2','3','-','+','0','.','='],
+					input:'',
+					res:''
+				}
+			},
+			methods:{
+				button(item){
+					switch(item){
+						case 'C':
+							this.input=0
+							break
+						case '<-':
+							this.input=this.input.substr(0,this.input.length-1)
+							break
+						case '=':
+							this.res=eval(this.input)//eval() 函数可计算某个字符串
+							break
+						default:
+							this.input+=item
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>
