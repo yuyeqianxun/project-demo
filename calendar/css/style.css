@@ -1,0 +1,59 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.YM{
+	font-size: 30px;
+	line-height: 100px;
+	height: 100px;
+	background: #00b4ff;
+	text-align: center;
+	color: #fff;
+	display: flex;
+	justify-content: space-between;
+}
+.body,.weeks{
+	display: flex;
+	flex-wrap: wrap;
+	border:1px solid #00b4ff;
+}
+.weeks{
+	background: #00b4ff;
+}
+.week{
+	width: 14%;
+	text-align: center;
+	font-size: 25px;
+	color: #fff;
+	line-height: 65px;
+}
+.prev,.current,.next{
+	width: 14%;
+	text-align: center;
+	font-size: 25px;
+	font-weight: 600;
+	height: 65px;
+	line-height: 65px;
+}
+.prev,.next{
+	color: #ddd;
+}
+.current{
+	color: #00b4ff;
+}
+.active{
+	background: #00b4ff;
+	color: #fff;
+}
+.back{
+	background: #f17437;
+	border-radius:3px;
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	line-height: 40px;
+	margin-left: 10px;
+}
+.back:active{
+	background: #e8560e;
+}
