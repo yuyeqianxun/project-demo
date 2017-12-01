@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>province</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<style>
+	#china{
+		width: 600px;
+		display: flex;
+		justify-content: space-between;
+		margin:0 auto;
+	}
+	select{
+		-webkit-appearance: none;
+		background-color: #fff;
+		background-image: none;
+		border-radius: 4px;
+		border: 1px solid #d8dce5;
+		box-sizing: border-box;
+		color: #5a5e66;
+		display: inline-block;
+		font-size: inherit;
+		height: 40px;
+		line-height: 1;
+		outline: none;
+		padding: 0 15px;
+		transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+		width: 30%;		
+	}
+</style>
+</head>
+<body>
+	<div id="china">
+		<select name="province" class="" @change="loadcity($event)">
+			<option value="请选择">请选择</option>
+			<option :value="index" v-for="(item,index) in province">{{item}}</option>
+		</select>
+		<select name="city" class="" @change="loadarea($event)">
+			<option value="" v-if="!this.city">暂无数据</option>
+			<option :value="index" v-for="(item,index) in city" @click="loadarea(index)">{{item}}</option>
+		</select>
+		<select name="area" class="">
+			<option value="" v-if="!this.area">暂无数据</option>
+			<option :value="index" v-for="(item,index) in area">{{item}}</option>
+		</select>
+	</div>
+	<script src="province.js"></script>
+	<script>
+		new Vue({
+			el:'#china',
+			data(){
+				return{
+					province:chinaData[86],
+					city:'',
+					area:''
+				}
+			},
+			methods:{
+				loadcity(event){
+					const num=parseInt(event.target.value)//获取到选中的省份的键，即省份的代码
+					if(num){//如果获取到省份的代码
+						this.city=chinaData[num]//获取到该省份下市的数据，默认显示的是第一个市
+						const area_num=Object.keys(this.city)[0]//因为市已经显示，所以再获取到第一个市的代码，比如这里显示的是南京，通过Object.keys()获取到键
+						this.area=chinaData[area_num]//这里获取到第一个市的第一个区
+					}else{//如果重新选中了“请选择”，将其他数据清空
+						this.city=''
+						this.area=''
+					}
+				},
+				loadarea(event){
+					const num=parseInt(event.target.value)//获取到市的代码
+					this.area=chinaData[num]//获取到区的数据
+				}
+			}
+		})
+	</script>
+</body>
+</html>
