@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>snake</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<style>
+		td{
+			border: 1px solid #666;
+			width: 10px;
+			height: 10px;
+		}
+		table{
+			border-collapse: collapse;
+		}
+		.active{background: #f60}
+	</style>
+</head>
+<body>
+	<div id="snake">
+		<table>
+		<tr v-for="(col,y) in cols"><td v-for="(row,x) in rows" :class="body(x,y)||creatfood(x,y)?'active':''"></td></tr>
+		</table>
+		<button @click="start()">开始</button>
+		<button @click="circle([3,0])">开始</button>
+	</div>
+	<script>
+		let timer=''
+		new Vue({
+			el:'#snake',
+			data(){
+				return{
+					rows:'',
+					cols:'',
+					position:[[0,0],[1,0],[2,0],[3,0]],
+					direction:1,
+					food:[]
+				}
+			},
+			mounted(){
+				let _this = this;
+			    document.onkeydown = function(e){
+			    	if(e.keyCode===37){
+			    		_this.change(-1)
+			    	}else if(e.keyCode===38){
+			    		_this.change(-2)
+			    	}else if(e.keyCode===39){
+			    		_this.change(1)
+			    	}else{
+			    		_this.change(2)
+			    	}
+			    }
+			    this.background() 
+			    this.creatfood()
+
+			},
+			methods:{
+				background(){
+					this.rows=Array(30)
+					this.cols=Array(30)
+				},
+				creatfood(x,y){
+					this.food[0]=Math.floor(Math.random()*30)
+					this.food[1]=Math.floor(Math.random()*30)
+					if(this.food[0]===x&&this.food[1]===y){
+						return true
+					}
+				},
+				start(){
+					timer=setInterval(()=>this.autorun(),300)
+				},			
+				change(dir){
+					if(Math.abs(dir)===Math.abs(this.direction)){
+						return
+					}else{
+						this.direction=dir
+						this.autorun()
+					}
+				},
+				autorun(){					
+					let direction=this.direction
+					let headX,headY,circle=0
+						headX=this.position[this.position.length-1][0]
+						headY=this.position[this.position.length-1][1]
+					if(direction===1||direction===-1){						
+							direction>0?headX++:headX--										
+					}else{
+							direction>0?headY++:headY--
+					}
+					if(headX<0||headX>29||headY<0||headY>29||this.body(headX,headY)){
+						alert('Game Over')
+						clearInterval(timer)
+						this.position=[[0,0],[1,0],[2,0],[3,0]]
+						this.creatfood()
+						this.direction=1
+					}else{						
+						this.position.push([headX,headY])
+						if(headX!==this.food[0]||headY!==this.food[1]){							
+								this.position.shift()
+						}else{
+							this.creatfood()
+						}
+					}									
+				},
+				body(x,y){
+					let X,Y
+					for(i=0;i<this.position.length;i++){
+						if(this.position[i][0]===x&&this.position[i][1]===y){
+							return true
+						}
+					}
+				}								
+			}
+		})
+	</script>
+</body>
+</html>
