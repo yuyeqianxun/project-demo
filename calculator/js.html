@@ -3,8 +3,29 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Calculator</title>
+	<style>
+	body{
+		height: 2500px;
+	}
+</style>
 </head>
 <body>
-	
+
+	<script>
+		function scrollFn(){
+			console.log(1)
+		}
+		function throttle(method,context){
+			console.log(2)
+			clearTimeout(method.tId);
+			method.tId=setTimeout(function(){
+				method.call(context)
+				console.log(method)
+			},300)
+		}
+		window.onscroll=function(){
+			throttle(scrollFn)
+		}
+	</script>
 </body>
 </html>

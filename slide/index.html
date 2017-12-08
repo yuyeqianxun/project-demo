@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="index.css">
+	<style>
+	ul,ol,li{padding:0;margin:0;list-style: none;}
+	.container{
+		width: 500px;
+		height: 300px;
+		margin:50px auto;
+		position: relative;
+	}
+	#msg{
+		width:100%;
+		height:40px;
+		line-height: 40px;
+		text-indent:10px;
+		position:absolute;
+		bottom:0px;
+		left:0;
+		color:white;
+		font-size: 16px;
+		background:rgba(0,0,0,.8);
+		cursor:pointer;
+		z-index:1;
+	}
+	ul li a{display: block;}
+	img{width: 500px;height: 300px;}
+	ol{position: absolute;bottom:10px; left:50%; -webkit-transform:translateX(-50%); background:rgba(255,255,255,.6);border-radius:7px;padding:3px;z-index:2;}
+	ol li{background: red; float:left; width:8px; height:8px;margin-left:5px; -webkit-border-radius:4px;-mz-border-radius:4px;margin-right: 7px}
+	span{
+		width:30px;
+		height:45px;
+		line-height: 45px;
+		font-size:40px;
+		color:white;
+		background:rgba(255,255,255,.3);
+		cursor:pointer;
+		position:absolute;
+		font-weight: bold;
+		top:50%;
+		left:0;
+		-webkit-transform:translateY(-50%);
+		-mz-transform:translateY(-50%);
+		-webkit-transition:all 1s ease 0s;
+	}
+	#rtBtn{
+		right:0;
+		left:auto;
+	}
+	span:hover{
+		-webkit-transform:rotateY(40deg) translateX(-30px) scale(1.2);
+	}
+</style>
+</head>
+<body>
+	<div class="container" id="slide1">
+		<ul>
+			<li><img src="img/img11.jpg"></li>
+			<li><img src="img/img21.jpg"></li>
+			<li><img src="img/img33.jpg"></li>
+			<li><img src="img/img39.jpg"></li>
+			<li><img src="img/img55.jpg"></li>
+		</ul>
+	</div>
+	<script>
+		var s = new Slider("slide1");
+		console.info(s);
+	</script>
+
+	<script>
+		function Slider(containerId){
+			this.containerId = $(containerId);
+			this.ullis =$get($get(containerId,"ul")[0],"li");
+			this.num = this.ullis.length;
+			this.ollis =this.createList();
+			this.indexA = 1;
+			this.timer;
+			this.init(this.indexA);
+			this.ltBtn = $("ltBtn");
+			this.rtBtn = $("rtBtn");
+			this.mouseenter();
+			this.autoplay(this.indexA);
+		}
+		Slider.prototype.createList =function(){//创建ol
+			var ol = $create("ol");
+			var lis = [];
+			for(var i = 0; i<this.num;i++){
+				var li = $create("li");
+				ol.appendChild(li);
+				lis.push(li);    
+			}
+			this.containerId.appendChild(ol);
+			var spanleft = $create("span")
+			spanleft.innerHTML="&lt;"
+			spanleft.id="ltBtn";
+			this.containerId.appendChild(spanleft);
+			var spanright =$create("span");
+			spanright.innerHTML = "&gt;"
+			spanright.id = "rtBtn";
+			this.containerId.appendChild(spanright);
+			var div = $create("div")
+			div.id= "msg";
+			this.containerId.appendChild(div);
+			return lis;
+		}
+		Slider.prototype.init =function(index){
+			this.moveto(index);
+		}
+		Slider.prototype.mouseenter =function(){
+			var that = this;
+			for (var i = 0; i < this.num; i++) {
+				this.ollis[i].index = i; 
+				this.ollis[i].onmouseenter = function(){
+					that.moveto(this.index);
+				}
+			}
+			this.ltBtn.onclick = function(){
+				if(that.indexA>0){
+					that.indexA--;
+					that.moveto(that.indexA);
+				}else{
+					that.indexA=that.num-1;
+					that.moveto(that.indexA);
+				}
+			}
+			this.rtBtn.onclick = function(){
+				if(that.indexA<that.num-1){
+					that.indexA++;
+					that.moveto(that.indexA);
+				}else{
+					that.indexA = 0;
+					that.moveto(that.indexA);
+				}
+			}
+		}
+		Slider.prototype.moveto =function(index){
+			for (var i = 0; i < this.num; i++) {
+				this.ullis[i].style.display="none";
+				this.ollis[i].style.backgroundColor="red";    
+			}
+			this.ullis[index].style.display="block";
+			this.ollis[index].style.backgroundColor="blue";
+			$("msg").innerHTML = this.ullis[index].firstChild.firstChild.alt;
+		}
+		Slider.prototype.autoplay= function(indexA){
+			var that =this;
+
+			that.timer = setInterval(function(){
+				indexA%=that.num;
+				that.moveto(indexA);    
+				indexA++;
+			},3000);
+			that.containerId.onmouseenter =function(){
+				clearInterval(that.timer);
+				console.info(that.containerId);
+			}
+			that.containerId.onmouseleave = function(){
+				that.autoplay(indexA)
+			}    
+
+		}
+	</script>
+</body>
+</html>
