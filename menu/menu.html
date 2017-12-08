@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Menu</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<style>
+	*{
+		margin:0;
+		padding:0;
+	}
+	a,a:hover{
+		text-decoration: none;
+		color: #f15959;
+		line-height: 25px;
+		width: 100%;
+		background-color: #ddd;
+		display: block;
+		padding-left: 25px;
+		box-sizing: border-box;
+	}
+	#menu{
+		width: 600px;
+	}
+	li{
+		line-height: 35px;
+		padding-left: 25px;
+	}
+	.top{
+		position: fixed;
+		top:0;
+		z-index: 9;
+	}
+	.title{
+		position: relative;
+	}
+	.title ul{
+		padding-top: 25px;
+	}
+	.current{
+		position: fixed;
+		top:0;
+	}
+	.last{
+		position: absolute;
+		bottom: 0;
+	}
+	.current{
+		position: fixed;
+		top: 0;
+		z-index: 99;
+	}
+	.bottom{
+		position: absolute;
+		bottom: 0;
+	}
+	.top{
+		position: absolute;
+		top: 0;
+	}
+</style>
+</head>
+<body>
+	<div id="menu">
+		<a href="" class="current" v-show="show">{{current}}</a>
+		<div class="title" v-for="(item,index) in menu.list">
+			<a href="#" :class="isActive===index?'bottom':'top'" ref="tip">{{item.title}}</a>
+			<ul ref="ul">
+				<li v-for="(name,index) in item.content">{{name}}</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el:'#menu',
+			data(){
+				return{
+					menu:{
+						list:[
+						{
+							title:'A',
+							content:['阿里巴巴','阿尔法','阿库娅','阿尔托莉亚']
+						},
+						{
+							title:'B',
+							content:['哔哩哔哩','彼岸花','别闹','鳖皇']
+						},
+						{
+							title:'C',
+							content:['草榴','草上飞','蔡司','菜鸡']
+						},
+						{
+							title:'D',
+							content:['D罩杯','党员','顶你个肺','电棍']
+						},
+						{
+							title:'E',
+							content:['额']
+						},
+						{
+							title:'F',
+							content:['福气','放肆','方块龙','方唐镜']
+						},
+						{
+							title:'G',
+							content:['GG','钢筋','共享单车','G胖']
+						},
+						{
+							title:'H',
+							content:['Hentai','狠人大帝',]
+						},
+						{
+							title:'I',
+							content:['I❤U']
+						},
+						{
+							title:'J',
+							content:['警察叔叔就是他','敬老院']
+						},
+						]
+					},
+					current:'A',
+					show:true,
+					isActive:''
+				}
+			},
+			methods:{
+				menuList() {
+					const list=this.$refs.ul//列表内容形成的数组
+					const _this=this//保存vue对象
+					list.map(function(item,index){ //循环数组
+						let top=item.getBoundingClientRect().top //item顶部与可是窗口顶部的距离
+						let bottom=item.getBoundingClientRect().bottom //item底部与可是窗口顶部的距离
+						if(bottom<=25){	//如果底部距离小于等于25，即current高度				
+							_this.show=false//current消失
+							_this.isActive=index//将该item设为活动，添加bottom样式，替代current，肉眼是分辨不出的
+						}else if(top<=0&&bottom>25){//当item的下一个item.top<=0时，或者item.bottom>25
+							_this.show=true//将current显示，盖掉item的title
+							_this.isActive=''//将item的活跃取消，让title回原位
+							_this.current=_this.menu.list[index].title//将下一个item的title赋值给current
+						}
+					})	
+				}
+			},
+			mounted() {
+				window.addEventListener('scroll', this.menuList)//监听滚动
+			}
+			
+		})
+	</script>
+</body>
+</html>
