@@ -20,6 +20,24 @@
 	.contain{
 		width: 600px;
 		overflow: hidden;
+		position: relative;
+	}
+	ol{
+		position: absolute;
+		bottom:10px;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+	}
+	ol li{
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background-color: #f60;
+		margin:0 2px;
+	}
+	.conActive{
+		background-color: #fff;
 	}
 </style>
 </head>
@@ -38,25 +56,10 @@
 	<script>
 		$(function() {
 			$(".contain").Slide({
-				pagination:false
+				pagination:true,
+				interval:3000
 			})
 		})
-		// function run(data,index) {
-		// 	$(data).animate({right:index*600+'px'}, 1000)
-		// }
-		// function init(){
-		// 	let imglist=$('#slide li')
-
-		// 	let content=$('#slide ul')
-		// 	let width=$(imglist[0]).width()*imglist.length
-		// 	let index=1
-		// 	content.css('width',width)
-		// 	setInterval(function(){
-		// 		run(content,index);			
-		// 		index===4?index=0:index++
-		// 	},2000);
-		// }
-		// init();
 	</script>
 </body>
 </html>
