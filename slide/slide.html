@@ -6,22 +6,22 @@
 	<script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
 	<script src="jquery.js"></script>
 	<style>
-		*{
-			margin:0;
-			padding: 0;
-		}
-		li{
-			list-style: none;
-		}
-		ul{
-			display: flex;
-			position: relative;
-		}
-		.contain{
-			width: 600px;
-			overflow: hidden;
-		}
-	</style>
+	*{
+		margin:0;
+		padding: 0;
+	}
+	li{
+		list-style: none;
+	}
+	ul{
+		display: flex;
+		position: relative;
+	}
+	.contain{
+		width: 600px;
+		overflow: hidden;
+	}
+</style>
 </head>
 <body>
 	<div id="slide">
@@ -36,7 +36,27 @@
 		</div>
 	</div>
 	<script>
-		init();
+		$(function() {
+			$(".contain").Slide({
+				pagination:false
+			})
+		})
+		// function run(data,index) {
+		// 	$(data).animate({right:index*600+'px'}, 1000)
+		// }
+		// function init(){
+		// 	let imglist=$('#slide li')
+
+		// 	let content=$('#slide ul')
+		// 	let width=$(imglist[0]).width()*imglist.length
+		// 	let index=1
+		// 	content.css('width',width)
+		// 	setInterval(function(){
+		// 		run(content,index);			
+		// 		index===4?index=0:index++
+		// 	},2000);
+		// }
+		// init();
 	</script>
 </body>
 </html>
