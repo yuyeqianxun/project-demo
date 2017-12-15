@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>放大镜</title>
+	<link rel="stylesheet" href="magnifier.css">
+	<script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+</head>
+<body>
+	<div id="magnifier">
+		<div class="product">
+			<div class="small-product">
+				<img src="img/1.jpg" alt="" width="400" height="400">
+				<div class="cover"></div>
+			</div>
+			<div class="list-product">
+				<ul>
+					<li><img src="img/1.jpg" alt="" width="70" height="70"></li>
+				</ul>
+			</div>
+		</div>
+		<div class="big-product"><img src="img/1.jpg" alt=""></div>
+	</div>
+	<script src="magnifier.js"></script>
+	<script>
+		$(function() {
+			$("#magnifier").Magnifier({
+				
+			})
+		})
+	</script>
+</body>
+</html>
