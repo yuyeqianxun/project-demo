@@ -9,86 +9,98 @@
 	*{
 		margin:0;
 		padding:0;
-
 	}
+    html,body{
+        height: 100%;
+    }
 	ul{
-		list-style: none
+		list-style: none;
+        
 	}
-	html,body{
-		height: 100%;
-	}
-	.mobile{
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-	}
-	.tab{
-		line-height: 25px;
-		font-size: 12px;
-		height: 25px;
-		background-color: #f55d54;
-		color: #fff;
-		overflow: hidden;
-	}
+    .mobile{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .tab{
+        width: 100%;
+        overflow: scroll;
+		line-height: 35px;
+    }
+    .tab::-webkit-scrollbar {
+        display:none
+    }
 	.tab ul{
-		display: flex;
-	}
-	.tab ul li{
-		width: 50px;
+        width: 900px;
+        display: flex;
+    }
+    .tab ul li{
+        width: 100px;
 		text-align: center;
-	}	
-	.content{
-		flex: 1;
-		overflow: hidden;
-	}
-	.content ul{
-		height: 100%;
-		display: flex;
-	}	
-	.content li{
-		height: 100%;
-		flex: 1;
-	}
-	.tab-active{
-		font-size: 14px;
-		font-weight: 600;
-	}
-	.active{
-		display: block!important;
-	}
+    }
+    .content{
+        flex:1;
+        overflow: hidden;
+    }
+    .content ul{
+        display: flex;
+        height: 100%;
+    }
+    .content ul li{
+        flex: 1;
+    }
+
 </style>
 </head>
 <body>
 	<div class="mobile">
 		<div class="tab">
 			<ul>
-				<li class="tab-active">推荐</li>
-				<li>小说</li>
-				<li>电影</li>
-				<li>手机</li>
-				<li>热点</li>
-				<li>问答</li>
-				<li>科技</li>
-				<li>汽车</li>
-				<li>段子</li>
+				<li class="tab-item">推荐</li>
+				<li class="tab-item">小说</li>
+				<li class="tab-item">电影</li>
+				<li class="tab-item">手机</li>
+				<li class="tab-item">热点</li>
+				<li class="tab-item">问答</li>
+				<li class="tab-item">科技</li>
+				<li class="tab-item">汽车</li>
+				<li class="tab-item">段子</li>
+				<li class="tab-item">天气</li>
+				<li class="tab-item">代码</li>
+				<li class="tab-item">糗事</li>
+				<li class="tab-item">电脑</li>
+				<li class="tab-item">游戏</li>
+				<li class="tab-item">直播</li>
+				<li class="tab-item">生活</li>
+				<li class="tab-item">分享</li>
+				<li class="tab-item">呵呵</li>
 			</ul>
 		</div>
 		<div class="content">
 			<ul>
-				<li style="background-color: #f78e88">推荐</li>
-				<li style="background-color: #f7c988">小说</li>
-				<li style="background-color: #e6e6b0">电影</li>
-				<li style="background-color: #cde6b0">手机</li>
-				<li style="background-color: #4cca49">热点</li>
-				<li style="background-color: #87e8e7">问答</li>
-				<li style="background-color: #87b8e8">科技</li>
-				<li style="background-color: #b1a5fb">汽车</li>
-				<li style="background-color: #f9a5fb">段子</li>
+				<li style="background-color: #f78e88" class="content-item">推荐</li>
+				<li style="background-color: #f7c988" class="content-item">小说</li>
+				<li style="background-color: #e6e6b0" class="content-item">电影</li>
+				<li style="background-color: #cde6b0" class="content-item">手机</li>
+				<li style="background-color: #4cca49" class="content-item">热点</li>
+				<li style="background-color: #87e8e7" class="content-item">问答</li>
+				<li style="background-color: #87b8e8" class="content-item">科技</li>
+				<li style="background-color: #b1a5fb" class="content-item">汽车</li>
+				<li style="background-color: #f9a5fb" class="content-item">段子</li>
+				<li style="background-color: #e05750" class="content-item">天气</li>
+				<li style="background-color: #a87b3c" class="content-item">代码</li>
+				<li style="background-color: #a5a53d" class="content-item">糗事</li>
+				<li style="background-color: #a1e94f" class="content-item">电脑</li>
+				<li style="background-color: #3d7a3c" class="content-item">游戏</li>
+				<li style="background-color: #3badab" class="content-item">直播</li>
+				<li style="background-color: #3888d8" class="content-item">生活</li>
+				<li style="background-color: #392d8a" class="content-item">分享</li>
+				<li style="background-color: #8f3491" class="content-item">呵呵</li>
 			</ul>
 		</div>
 	</div>
 	<script src="https://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
-	<script src="js/js.js"></script>
+	<script src="slide.js"></script>
 	<script>
 		$(function() {
 			$(".mobile").Slide({
